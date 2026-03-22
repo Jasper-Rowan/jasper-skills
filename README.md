@@ -28,7 +28,7 @@ Claude Code reads skills from `~/.claude/skills/` — a symlink points there fro
 git clone https://github.com/Jasper-Rowan/jasper-skills.git ~/Cypress/skills
 
 # 2. Run setup
-bash ~/Cypress/skills/claude/setup.sh
+bash ~/Cypress/skills/setup.sh
 ```
 
 Restart Claude Code and Cursor. Done.

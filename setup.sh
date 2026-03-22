@@ -1,10 +1,10 @@
 #!/bin/bash
 # Bootstrap Claude Code + Cursor on a new Mac
-# Run: bash ~/Cypress/skills/claude/setup.sh
+# Run: bash ~/Cypress/skills/setup.sh
 
 set -e
 
-SKILLS_ROOT="$(cd "$(dirname "$0")/.." && pwd)"  # ~/Cypress/skills
+SKILLS_ROOT="$(cd "$(dirname "$0")" && pwd)"  # ~/Cypress/skills
 CLAUDE_DIR="$HOME/.claude"
 CURSOR_DIR="$HOME/.cursor"
 
