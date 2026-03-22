@@ -1,4 +1,0 @@
----
-description: For actions like running tests, migrations, and other actions that rely on python dependencies, use `uv run` to run them. E.g `uv run pytest ...` or `uv run alembic ...`
-alwaysApply: false
----

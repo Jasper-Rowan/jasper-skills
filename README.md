@@ -1,6 +1,6 @@
 # Jasper's Skills
 
-Shared AI tool configuration for Jasper Rowan — Claude Code skills and Cursor rules in one repo.
+Personal AI skills for Jasper Rowan — Claude Code and Cursor slash commands in one repo.
 
 **Repo:** https://github.com/Jasper-Rowan/jasper-skills
 **Local path:** `~/Cypress/skills/`
@@ -16,12 +16,10 @@ jasper-skills/
 │   │   └── settings.json           #   Claude Code settings (hooks, status line, etc.)
 │   └── statusline/
 │       └── statusline-command.sh   #   Status line script (rate limits + context %)
-└── cursor/
-    └── rules/                      # Cursor rules (.mdc files go here)
+└── cursor/                         # Cursor skills (add .md files here)
 ```
 
 Claude Code reads skills from `~/.claude/skills/` — a symlink points there from `~/Cypress/skills/claude/`.
-Cursor reads rules from `~/.cursor/rules/` — a symlink points there from `~/Cypress/skills/cursor/rules/`.
 
 ## Fresh machine setup
 
@@ -56,15 +54,6 @@ cd ~/Cypress/skills && git pull
 | `/backup-logic` | Zip Logic Pro X projects and upload to Google Drive (Zen Cruz > Logic Projects) |
 | `/build-skill` | Create a new skill, save it locally, and auto-push to this repo |
 
-## Cursor rules
+## Cursor skills
 
-Global rules go in `cursor/rules/*.mdc` — Cursor picks these up everywhere via the `~/.cursor/rules` symlink.
-
-Project-specific rules are backed up in `cursor/rules/project-specific/` but are **not** applied globally. To promote one to global, move it up to `cursor/rules/`.
-
-| Rule | Scope | Description |
-|------|-------|-------------|
-| `dontuseresponsesections.mdc` | project-specific | Don't use response sections — always use realtime documents |
-| `tool-renderer-performance.mdc` | project-specific | Memoization + debouncing rules for AI tool renderer components |
-| `use-bun-instead-of-node-vite-npm-pnpm.mdc` | project-specific | Use Bun instead of Node/npm/pnpm/vite |
-| `use-virtual-env.mdc` | project-specific | Use `uv run` for Python commands (pytest, alembic, etc.) |
+*(None yet)*

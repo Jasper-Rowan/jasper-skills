@@ -6,7 +6,6 @@ set -e
 
 SKILLS_ROOT="$(cd "$(dirname "$0")/.." && pwd)"  # ~/Cypress/skills
 CLAUDE_DIR="$HOME/.claude"
-CURSOR_DIR="$HOME/.cursor"
 
 echo "Setting up from $SKILLS_ROOT..."
 
@@ -39,22 +38,6 @@ else
   echo "✓ ~/.claude/settings.json installed"
 fi
 
-# ── Cursor ─────────────────────────────────────────────────────────────────────
-
-mkdir -p "$CURSOR_DIR"
-
-if [ -L "$CURSOR_DIR/rules" ]; then
-  echo "✓ ~/.cursor/rules symlink already exists"
-elif [ -d "$CURSOR_DIR/rules" ]; then
-  echo "  ~/.cursor/rules is a real directory — backing up to ~/.cursor/rules.bak"
-  mv "$CURSOR_DIR/rules" "$CURSOR_DIR/rules.bak"
-  ln -s "$SKILLS_ROOT/cursor/rules" "$CURSOR_DIR/rules"
-  echo "✓ ~/.cursor/rules → $SKILLS_ROOT/cursor/rules"
-else
-  ln -s "$SKILLS_ROOT/cursor/rules" "$CURSOR_DIR/rules"
-  echo "✓ ~/.cursor/rules → $SKILLS_ROOT/cursor/rules"
-fi
-
 # ── Done ───────────────────────────────────────────────────────────────────────
 
 echo ""
@@ -64,6 +47,5 @@ echo "Claude skills:  /backup-logic, /build-skill"
 echo "Status line:    5h / weekly rate limits + context usage"
 echo "Stop hook:      Glass sound + notification when Claude finishes"
 echo ""
-echo "Notes:"
-echo "  - backup-logic requires gcloud CLI authenticated as jasperrowan199@gmail.com"
-echo "  - Sync future changes: cd ~/Cypress/skills && git add -A && git commit -m '...' && git push"
+echo "Note: backup-logic requires gcloud CLI authenticated as jasperrowan199@gmail.com"
+echo "Sync changes:   cd ~/Cypress/skills && git add -A && git commit -m '...' && git push"
