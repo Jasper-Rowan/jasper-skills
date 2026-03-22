@@ -1,34 +1,58 @@
 # Claude Skills
 
-Personal Claude Code slash commands for Jasper Rowan.
+Personal Claude Code configuration, skills, and slash commands for Jasper Rowan.
 
-## Setup on a new machine
+## Fresh machine setup
 
 ```bash
-# Clone directly into Claude's skills directory
+# Clone directly into Claude's skills directory, then run setup
 git clone https://github.com/Jasper-Rowan/claude-skills.git ~/.claude/skills
+bash ~/.claude/skills/setup.sh
 ```
 
-That's it — Claude Code will pick up all skills automatically on next launch.
+Restart Claude Code. That's it.
 
-## Updating skills
+## What you get
 
+| Thing | What it does |
+|-------|-------------|
+| `/backup-logic` | Zip Logic Pro X projects and upload to Google Drive (Zen Cruz > Logic Projects) |
+| **Status line** | Shows `5h: X% \| week: X% \| ctx: X%` — rate limits and context usage |
+| **Stop hook** | Plays a Glass sound + macOS notification when Claude finishes a task |
+
+## Keeping skills in sync
+
+When you add or update a skill:
 ```bash
 cd ~/.claude/skills
 git add -A
-git commit -m "update skills"
+git commit -m "describe what changed"
 git push
 ```
 
-## Pulling updates on another machine
-
+On another machine:
 ```bash
 cd ~/.claude/skills
 git pull
+bash setup.sh  # re-run if you added new config files
 ```
 
-## Skills
+## Repo structure
 
-| Skill | Command | Description |
-|-------|---------|-------------|
-| backup-logic | `/backup-logic` | Back up Logic Pro X projects to Google Drive (Zen Cruz folder) |
+```
+claude-skills/
+├── README.md               # This file
+├── setup.sh                # Bootstrap script for new machines
+├── config/
+│   └── settings.json       # Claude Code settings (hooks, status line, etc.)
+├── statusline/
+│   └── statusline-command.sh  # Status line script
+└── backup-logic.md         # /backup-logic skill
+```
+
+## Dependencies for specific skills
+
+**backup-logic:**
+- `gcloud` CLI — authenticated as jasperrowan199@gmail.com
+- Logic Pro installed
+- Google Drive folder: My Drive > Jasper > Zen Cruz > Logic Projects (folder ID: `1bWmUCDPqfPE618_I_MkO6tJIsuB3JJL8`)
