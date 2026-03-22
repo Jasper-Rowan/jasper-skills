@@ -53,7 +53,18 @@ cd ~/Cypress/skills && git pull
 |---------|-------------|
 | `/backup-logic` | Zip Logic Pro X projects and upload to Google Drive (Zen Cruz > Logic Projects) |
 | `/build-skill` | Create a new skill, save it locally, and auto-push to this repo |
+| `/duplo-vpn-staging` | Connect to DuploCloud staging VPC via OpenVPN, then use duploctl/kubectl to debug |
 
 ## Cursor skills
 
-*(None yet)*
+Cursor skills live in `~/.cursor/skills/<name>/SKILL.md`. Backed up here under `cursor/`.
+
+| Skill | Description |
+|-------|-------------|
+| `create-branch` | Create a standardized git branch (jrowan/TICKET-123/description) |
+| `create-statsig-flags` | Create Statsig feature flags via Siggy CLI |
+| `create-worktree` | Create a git worktree branched from main for parallel work |
+| `duplo-vpn-staging` | Connect to DuploCloud staging VPC, use duploctl/kubectl |
+| `notion-requirements` | Create user-focused requirements tables for Notion |
+| `pr-review` | Structured PR review: description, feature flags, E2E tests |
+| `run-e2e-tests` | Run Playwright E2E tests and serve the HTML report |
