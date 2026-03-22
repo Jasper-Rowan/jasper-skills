@@ -1,0 +1,88 @@
+---
+description: Performance rules for AI tool renderer components (CodeExecution, ToolOutput, ImageGeneration, CodeBlock, etc.)
+globs: packages/ui/src/ai-elements/*.tsx
+alwaysApply: false
+---
+
+# Tool Renderer Performance
+
+Tool renderers live inside streaming chat messages. The AI SDK creates **new object references** for `part.output`, `part.input`, and `part.result` on every stream token — even when values haven't changed. Without proper memoization, every streaming token re-renders ALL tool components in the message (including completed ones), causing the UI to freeze or crash.
+
+## Rules
+
+### 1. Always wrap tool components in `memo()` with a custom comparator
+
+Never rely on default shallow-reference comparison — object props from the AI SDK will always be new references.
+
+```tsx
+// ❌ BAD — re-renders on every stream token
+export const MyTool = ({ state, output, input }: Props) => { ... };
+
+// ❌ STILL BAD — memo with default comparison fails on object props
+export const MyTool = memo(({ state, output, input }: Props) => { ... });
+
+// ✅ GOOD — custom comparator with value-based checks for objects
+export const MyTool = memo(({ state, output, input }: Props) => {
+  ...
+}, (prev, next) => {
+  return (
+    prev.state === next.state &&
+    prev.className === next.className &&
+    shallowEqual(prev.output, next.output) &&
+    shallowEqual(prev.input, next.input)
+  );
+});
+MyTool.displayName = 'MyTool';
+```
+
+### 2. Use `shallowEqual` for object props, `===` for primitives
+
+A `shallowEqual` helper exists in `tool.tsx`. For `result`-style objects with known fields, compare fields individually:
+
+```tsx
+// For known shapes (e.g., CodeExecutionResult):
+prev.result.stdout === next.result.stdout &&
+prev.result.stderr === next.result.stderr &&
+prev.result.return_code === next.result.return_code
+
+// For opaque objects (e.g., generic tool output/input):
+shallowEqual(prev.output, next.output)
+```
+
+### 3. Debounce expensive operations during streaming
+
+Shiki syntax highlighting (`codeToHtml`) is very expensive. Never run it on every streaming token.
+
+```tsx
+// ❌ BAD — fires on every code change during streaming
+useEffect(() => {
+  highlightCode(code, language).then(setHtml);
+}, [code]);
+
+// ✅ GOOD — debounce + cancellation
+useEffect(() => {
+  let cancelled = false;
+  const timer = setTimeout(() => {
+    highlightCode(code, language).then(([light, dark]) => {
+      if (!cancelled) { setHtml(light); setDarkHtml(dark); }
+    });
+  }, 150);
+  return () => { cancelled = true; clearTimeout(timer); };
+}, [code, language]);
+```
+
+### 4. Never create new arrays/objects in the render body
+
+Move static arrays (like zoom levels) outside the component. Avoid inline object creation that defeats memoization.
+
+```tsx
+// ❌ BAD — new array every render
+function MyComponent() {
+  const LEVELS = [0.5, 1, 1.5, 2];
+  ...
+}
+
+// ✅ GOOD — stable reference
+const LEVELS = [0.5, 1, 1.5, 2];
+function MyComponent() { ... }
+```

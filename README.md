@@ -58,4 +58,13 @@ cd ~/Cypress/skills && git pull
 
 ## Cursor rules
 
-*(None yet — add `.mdc` files to `cursor/rules/`)*
+Global rules go in `cursor/rules/*.mdc` — Cursor picks these up everywhere via the `~/.cursor/rules` symlink.
+
+Project-specific rules are backed up in `cursor/rules/project-specific/` but are **not** applied globally. To promote one to global, move it up to `cursor/rules/`.
+
+| Rule | Scope | Description |
+|------|-------|-------------|
+| `dontuseresponsesections.mdc` | project-specific | Don't use response sections — always use realtime documents |
+| `tool-renderer-performance.mdc` | project-specific | Memoization + debouncing rules for AI tool renderer components |
+| `use-bun-instead-of-node-vite-npm-pnpm.mdc` | project-specific | Use Bun instead of Node/npm/pnpm/vite |
+| `use-virtual-env.mdc` | project-specific | Use `uv run` for Python commands (pytest, alembic, etc.) |
