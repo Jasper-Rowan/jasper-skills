@@ -3,7 +3,8 @@
 Create a new slash command skill, save it locally, and push it to GitHub.
 
 ## Skills repo location
-`~/.claude/skills/` — this is a git repo tracking `https://github.com/Jasper-Rowan/claude-skills`
+`~/Cypress/skills/` — git repo tracking `https://github.com/Jasper-Rowan/jasper-skills`
+Claude skills live in `~/Cypress/skills/claude/`. The path `~/.claude/skills` is a symlink pointing there.
 
 ## Your task
 
@@ -34,12 +35,12 @@ Create a new slash command skill, save it locally, and push it to GitHub.
 
    The skill file is a prompt — write it so Claude can execute the skill correctly in a future session with zero context from this one. Be specific. Include exact paths, command patterns, and known edge cases.
 
-4. **Update the README table** in `~/.claude/skills/README.md` — add a row for the new skill to the "What you get" table.
+4. **Update the README table** in `~/Cypress/skills/README.md` — add a row for the new skill to the Claude skills table.
 
 5. **Commit and push to GitHub:**
    ```bash
-   cd ~/.claude/skills
-   git add <name>.md README.md
+   cd ~/Cypress/skills
+   git add claude/<name>.md README.md
    git commit -m "Add /<name> skill: <one-line description>"
    git push
    ```
