@@ -17,6 +17,7 @@ Restart Claude Code. That's it.
 | Thing | What it does |
 |-------|-------------|
 | `/backup-logic` | Zip Logic Pro X projects and upload to Google Drive (Zen Cruz > Logic Projects) |
+| `/build-skill` | Create a new skill, write it to `~/.claude/skills/`, and auto-push to this repo |
 | **Status line** | Shows `5h: X% \| week: X% \| ctx: X%` — rate limits and context usage |
 | **Stop hook** | Plays a Glass sound + macOS notification when Claude finishes a task |
 
@@ -47,7 +48,8 @@ claude-skills/
 │   └── settings.json       # Claude Code settings (hooks, status line, etc.)
 ├── statusline/
 │   └── statusline-command.sh  # Status line script
-└── backup-logic.md         # /backup-logic skill
+├── backup-logic.md         # /backup-logic skill
+└── build-skill.md          # /build-skill skill — create new skills and auto-push
 ```
 
 ## Dependencies for specific skills
