@@ -6,6 +6,7 @@ set -e
 
 SKILLS_ROOT="$(cd "$(dirname "$0")/.." && pwd)"  # ~/Cypress/skills
 CLAUDE_DIR="$HOME/.claude"
+CURSOR_DIR="$HOME/.cursor"
 
 echo "Setting up from $SKILLS_ROOT..."
 
@@ -38,12 +39,32 @@ else
   echo "✓ ~/.claude/settings.json installed"
 fi
 
+# ── Cursor ─────────────────────────────────────────────────────────────────────
+
+mkdir -p "$CURSOR_DIR/skills"
+
+# Copy each Cursor skill folder from the repo into ~/.cursor/skills/
+for skill_dir in "$SKILLS_ROOT/cursor"/*/; do
+  skill_name=$(basename "$skill_dir")
+  dest="$CURSOR_DIR/skills/$skill_name"
+  if [ -d "$dest" ]; then
+    echo "  Cursor skill '$skill_name' already exists — skipping (delete manually to reinstall)"
+  else
+    cp -r "$skill_dir" "$dest"
+    echo "✓ Cursor skill installed: $skill_name"
+  fi
+done
+
 # ── Done ───────────────────────────────────────────────────────────────────────
 
 echo ""
 echo "Done! Restart Claude Code and Cursor to pick up all changes."
 echo ""
-echo "Claude skills:  /backup-logic, /build-skill"
+echo "Claude skills:  /backup-logic, /build-skill, /duplo-vpn-staging,"
+echo "                /create-branch, /create-statsig-flags, /notion-requirements,"
+echo "                /pr-review, /run-e2e-tests"
+echo "Cursor skills:  create-branch, create-statsig-flags, create-worktree,"
+echo "                duplo-vpn-staging, notion-requirements, pr-review, run-e2e-tests"
 echo "Status line:    5h / weekly rate limits + context usage"
 echo "Stop hook:      Glass sound + notification when Claude finishes"
 echo ""
