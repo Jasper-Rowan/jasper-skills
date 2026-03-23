@@ -1,6 +1,6 @@
 # PR Review
 
-Perform a structured PR review: draft the description, validate feature flags, run E2E tests, do a senior dev code review, then offer to create the PR. Use when the user asks for a PR review or wants to prepare changes for merge.
+Perform a structured PR review: draft the description, validate feature flags, run E2E tests, do a senior dev code review, then offer to create the PR. Use when the user asks for a PR review, wants to prepare changes for merge, or says anything like "push up a PR", "create a PR", "open a PR", "make a pull request", or "ship this".
 
 ## Step 1 — Draft the PR description
 
