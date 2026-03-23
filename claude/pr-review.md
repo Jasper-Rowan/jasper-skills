@@ -4,10 +4,11 @@ Perform a structured PR review: draft the description, validate feature flags, r
 
 ## Step 1 — Draft the PR description
 
-Run these first to understand scope:
+Run these first to understand scope. Always fetch origin before diffing — local main can be stale and will produce an inaccurate file list:
 ```bash
-git diff main --stat
-git log main..HEAD --oneline
+git fetch origin
+git diff origin/main --stat
+git log origin/main..HEAD --oneline
 ```
 
 Check for a PR template at `.github/pull_request_template.md`. Use it if it exists. Otherwise use this structure:
