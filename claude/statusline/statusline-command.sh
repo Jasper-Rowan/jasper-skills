@@ -25,5 +25,10 @@ if [ -n "$ctx_used" ]; then
 fi
 
 if [ ${#parts[@]} -gt 0 ]; then
-  printf "%s" "$(IFS=' | '; echo "${parts[*]}")"
+  # ${parts[*]} joins on the first char of IFS only, so build the " | " join by hand
+  joined="${parts[0]}"
+  for part in "${parts[@]:1}"; do
+    joined+=" | $part"
+  done
+  printf "%s" "$joined"
 fi
